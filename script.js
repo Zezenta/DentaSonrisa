@@ -7,6 +7,13 @@ document.addEventListener('DOMContentLoaded', function() {
         menuToggle.addEventListener('click', function() {
             menu.classList.toggle('active');
         });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!menu.contains(event.target) && !menuToggle.contains(event.target) && menu.classList.contains('active')) {
+                menu.classList.remove('active');
+            }
+        });
     }
     
     // Testimonials Slider
@@ -48,13 +55,57 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Touch swipe for testimonials on mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    const testimoniosSlider = document.querySelector('.testimonios-slider');
+    
+    if (testimoniosSlider) {
+        testimoniosSlider.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, {passive: true});
+        
+        testimoniosSlider.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, {passive: true});
+    }
+    
+    function handleSwipe() {
+        if (touchEndX < touchStartX) {
+            // Swipe left - next
+            currentIndex = (currentIndex + 1) % testimonios.length;
+            showTestimonio(currentIndex);
+        } else if (touchEndX > touchStartX) {
+            // Swipe right - previous
+            currentIndex = (currentIndex - 1 + testimonios.length) % testimonios.length;
+            showTestimonio(currentIndex);
+        }
+    }
+    
     // Auto slide testimonials
-    setInterval(() => {
+    let autoSlideInterval = setInterval(() => {
         if (nextBtn) {
             currentIndex = (currentIndex + 1) % testimonios.length;
             showTestimonio(currentIndex);
         }
     }, 5000);
+    
+    // Pause auto slide on interaction
+    const testimoniosControls = document.querySelector('.testimonios-controls');
+    if (testimoniosControls) {
+        testimoniosControls.addEventListener('mouseenter', () => {
+            clearInterval(autoSlideInterval);
+        });
+        
+        testimoniosControls.addEventListener('mouseleave', () => {
+            autoSlideInterval = setInterval(() => {
+                currentIndex = (currentIndex + 1) % testimonios.length;
+                showTestimonio(currentIndex);
+            }, 5000);
+        });
+    }
     
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -67,9 +118,13 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const target = document.querySelector(this.getAttribute('href'));
             if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
+                // Add offset for fixed header
+                const headerHeight = document.querySelector('header').offsetHeight;
+                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
                 });
             }
         });
@@ -81,17 +136,34 @@ document.addEventListener('DOMContentLoaded', function() {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Get form data
-            const formData = new FormData(contactForm);
-            const formDataObj = {};
-            formData.forEach((value, key) => {
-                formDataObj[key] = value;
-            });
+            // Basic form validation
+            let isValid = true;
+            const formElements = contactForm.elements;
             
-            // Here you would typically send the data to a server
-            // For demo purposes, we'll just show an alert
-            alert('¡Gracias por contactarnos! Te responderemos a la brevedad.');
-            contactForm.reset();
+            for (let i = 0; i < formElements.length; i++) {
+                if (formElements[i].hasAttribute('required') && !formElements[i].value) {
+                    isValid = false;
+                    formElements[i].style.borderColor = 'red';
+                } else if (formElements[i].type !== 'submit') {
+                    formElements[i].style.borderColor = '';
+                }
+            }
+            
+            if (isValid) {
+                // Get form data
+                const formData = new FormData(contactForm);
+                const formDataObj = {};
+                formData.forEach((value, key) => {
+                    formDataObj[key] = value;
+                });
+                
+                // Here you would typically send the data to a server
+                // For demo purposes, we'll just show an alert
+                alert('¡Gracias por contactarnos! Te responderemos a la brevedad.');
+                contactForm.reset();
+            } else {
+                alert('Por favor completa todos los campos requeridos.');
+            }
         });
     }
     
@@ -114,7 +186,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         elements.forEach(element => {
             const elementPosition = element.getBoundingClientRect().top;
-            const screenPosition = window.innerHeight / 1.3;
+            const screenPosition = window.innerHeight / 1.2;
             
             if (elementPosition < screenPosition) {
                 element.style.opacity = '1';
@@ -122,14 +194,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    
-    // Set initial styles for animation
-    const animatedElements = document.querySelectorAll('.servicio-card, .doctor-card, .nosotros-image, .nosotros-text');
-    animatedElements.forEach(element => {
-        element.style.opacity = '0';
-        element.style.transform = 'translateY(20px)';
-        element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-    });
     
     // Run animation on load and scroll
     window.addEventListener('load', animateOnScroll);
