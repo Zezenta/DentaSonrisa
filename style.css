@@ -260,7 +260,7 @@ header .container {
 
 .nosotros-text p {
     margin-bottom: 15px;
-    color: var(--background-color);
+    color: var(--text-color);
     font-size: 0.95rem;
 }
 
@@ -345,17 +345,7 @@ header .container {
 .testimonios {
     padding: 80px 0;
     background-color: var(--background-alt);
-    color: white;
-}
-
-.testimonios-header {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.rating-count {
-    color: #888;
-    font-size: 1.2rem;
+    color: var(--text-light);
 }
 
 .testimonios-list {
@@ -367,7 +357,7 @@ header .container {
 }
 
 .testimonio-item {
-    background-color: #2a2a2a;
+    background-color: var(--primary-color);
     border-radius: 10px;
     padding: 20px;
     transition: transform 0.3s ease;
@@ -390,22 +380,26 @@ header .container {
     border-radius: 50%;
     object-fit: cover;
 }
-
+.user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
 .user-info h4 {
     margin: 0;
     font-size: 1.1rem;
-    color: white;
-    margin-bottom: 5px;
+    color: #ffffff;
 }
 
 .review-time {
-    color: #888;
+    color: #ffffff;
+    font-weight: 100;
     font-size: 0.9rem;
     display: block;
 }
 
 .testimonio-content {
-    color: #ddd;
+    color: #fff;
     line-height: 1.6;
     font-size: 1rem;
 }
@@ -430,7 +424,7 @@ header .container {
 }
 
 .btn-ver-mas:hover {
-    color: white;
+    color: #5e5e5e;
 }
 
 .btn-ver-mas i {
@@ -445,11 +439,7 @@ header .container {
     .testimonios {
         padding: 60px 0;
     }
-    
-    .testimonio-item {
-        padding: 15px;
-    }
-    
+
     .rating-count {
         font-size: 1.1rem;
     }
@@ -494,6 +484,7 @@ header .container {
 
 .redes-sociales {
     display: flex;
+    justify-content: center;
     gap: 12px;
     margin-top: 25px;
 }
@@ -544,6 +535,7 @@ header .container {
     font-family: inherit;
     font-size: 0.95rem;
     transition: var(--transition);
+    resize: none;
 }
 
 .form-group input:focus,
@@ -667,7 +659,8 @@ footer {
     }
     
     .footer-content {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
+        place-items: center;
     }
     
     .footer-newsletter form {
@@ -770,7 +763,7 @@ footer {
     }
     
     .footer-content {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
