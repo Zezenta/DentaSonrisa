@@ -260,7 +260,7 @@ header .container {
 
 .nosotros-text p {
     margin-bottom: 15px;
-    color: var(--text-light);
+    color: var(--background-color);
     font-size: 0.95rem;
 }
 
@@ -341,111 +341,125 @@ header .container {
     font-size: 0.9rem;
 }
 
-/* Testimonios Section - Mobile First */
+/* Testimonios Section */
 .testimonios {
-    padding: 60px 0;
+    padding: 80px 0;
     background-color: var(--background-alt);
+    color: white;
 }
 
-.testimonios-slider {
-    position: relative;
-    max-width: 100%;
+.testimonios-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.rating-general {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.rating-count {
+    color: #888;
+    font-size: 1.2rem;
+}
+
+.testimonios-list {
+    max-width: 800px;
     margin: 0 auto;
-    overflow: hidden;
-    height: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
 }
 
-.testimonio {
-    position: absolute;
-    width: 100%;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-}
-
-.testimonio.active {
-    opacity: 1;
-}
-
-.testimonio-content {
-    background-color: white;
+.testimonio-item {
+    background-color: #2a2a2a;
     border-radius: 10px;
     padding: 20px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
 }
 
-.testimonio-content p {
-    font-size: 1rem;
-    font-style: italic;
-    margin-bottom: 20px;
-    color: var(--text-light);
+.testimonio-item:hover {
+    transform: translateY(-5px);
 }
 
-.cliente {
+.testimonio-user {
     display: flex;
     align-items: center;
     gap: 15px;
+    margin-bottom: 15px;
 }
 
-.cliente-image img {
+.testimonio-user img {
     width: 50px;
     height: 50px;
     border-radius: 50%;
     object-fit: cover;
 }
 
-.cliente-info h4 {
-    font-size: 1rem;
+.user-info h4 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: white;
     margin-bottom: 5px;
 }
 
-.estrellas {
-    color: #ffc107;
+.review-time {
+    color: #888;
     font-size: 0.9rem;
+    display: block;
 }
 
-.testimonios-controls {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    gap: 15px;
+.testimonio-content {
+    color: #ddd;
+    line-height: 1.6;
+    font-size: 1rem;
 }
 
-.prev-btn, .next-btn {
-    background-color: var(--primary-color);
-    color: white;
+.testimonios-more {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.btn-ver-mas {
+    background: none;
     border: none;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
+    color: #888;
+    font-size: 1rem;
+    cursor: pointer;
     display: flex;
-    justify-content: center;
     align-items: center;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.prev-btn:hover, .next-btn:hover {
-    background-color: var(--primary-dark);
-}
-
-.dots {
-    display: flex;
     gap: 8px;
+    margin: 0 auto;
+    padding: 10px 20px;
+    transition: color 0.3s ease;
 }
 
-.dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: var(--primary-light);
-    cursor: pointer;
-    transition: var(--transition);
+.btn-ver-mas:hover {
+    color: white;
 }
 
-.dot.active {
-    background-color: var(--primary-color);
-    transform: scale(1.2);
+.btn-ver-mas i {
+    transition: transform 0.3s ease;
+}
+
+.btn-ver-mas:hover i {
+    transform: translateY(3px);
+}
+
+@media (max-width: 768px) {
+    .testimonios {
+        padding: 60px 0;
+    }
+    
+    .testimonio-item {
+        padding: 15px;
+    }
+    
+    .rating-count {
+        font-size: 1.1rem;
+    }
 }
 
 /* Contacto Section - Mobile First */

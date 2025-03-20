@@ -107,6 +107,65 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Ver más testimonios
+    const btnVerMas = document.querySelector('.btn-ver-mas');
+    const testimoniosList = document.querySelector('.testimonios-list');
+    let testimoniosVisibles = 3;
+    
+    // Array de testimonios adicionales
+    const testimoniosExtra = [
+        {
+            nombre: 'Carlos Ruiz',
+            tiempo: '3h atrás',
+            contenido: 'Excelente atención y profesionalismo. El Dr. Mendoza realizó un trabajo excepcional con mi tratamiento de conducto.'
+        },
+        {
+            nombre: 'Laura Soto',
+            tiempo: '4h atrás',
+            contenido: 'Muy buena experiencia. El personal es amable y las instalaciones son muy modernas y limpias.'
+        },
+        {
+            nombre: 'Pedro Gómez',
+            tiempo: '5h atrás',
+            contenido: 'Increíble servicio. El tratamiento de ortodoncia está dando excelentes resultados.'
+        }
+    ];
+    
+    if (btnVerMas) {
+        btnVerMas.addEventListener('click', function() {
+            // Mostrar más testimonios
+            testimoniosExtra.forEach(testimonio => {
+                const testimonioHTML = `
+                    <div class="testimonio-item" style="opacity: 0; transform: translateY(20px);">
+                        <div class="testimonio-user">
+                            <img src="/placeholder.svg?height=50&width=50" alt="Usuario">
+                            <div class="user-info">
+                                <h4>${testimonio.nombre}</h4>
+                                <span class="review-time">${testimonio.tiempo}</span>
+                            </div>
+                        </div>
+                        <div class="testimonio-content">
+                            <p>${testimonio.contenido}</p>
+                        </div>
+                    </div>
+                `;
+                
+                testimoniosList.insertAdjacentHTML('beforeend', testimonioHTML);
+                
+                // Animar la entrada del nuevo testimonio
+                setTimeout(() => {
+                    const nuevoTestimonio = testimoniosList.lastElementChild;
+                    nuevoTestimonio.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    nuevoTestimonio.style.opacity = '1';
+                    nuevoTestimonio.style.transform = 'translateY(0)';
+                }, 100);
+            });
+            
+            // Ocultar el botón después de mostrar todos los testimonios
+            btnVerMas.style.display = 'none';
+        });
+    }
+    
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
@@ -118,13 +177,9 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const target = document.querySelector(this.getAttribute('href'));
             if (target) {
-                // Add offset for fixed header
-                const headerHeight = document.querySelector('header').offsetHeight;
-                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-                
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
                 });
             }
         });
@@ -136,34 +191,17 @@ document.addEventListener('DOMContentLoaded', function() {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Basic form validation
-            let isValid = true;
-            const formElements = contactForm.elements;
+            // Get form data
+            const formData = new FormData(contactForm);
+            const formDataObj = {};
+            formData.forEach((value, key) => {
+                formDataObj[key] = value;
+            });
             
-            for (let i = 0; i < formElements.length; i++) {
-                if (formElements[i].hasAttribute('required') && !formElements[i].value) {
-                    isValid = false;
-                    formElements[i].style.borderColor = 'red';
-                } else if (formElements[i].type !== 'submit') {
-                    formElements[i].style.borderColor = '';
-                }
-            }
-            
-            if (isValid) {
-                // Get form data
-                const formData = new FormData(contactForm);
-                const formDataObj = {};
-                formData.forEach((value, key) => {
-                    formDataObj[key] = value;
-                });
-                
-                // Here you would typically send the data to a server
-                // For demo purposes, we'll just show an alert
-                alert('¡Gracias por contactarnos! Te responderemos a la brevedad.');
-                contactForm.reset();
-            } else {
-                alert('Por favor completa todos los campos requeridos.');
-            }
+            // Here you would typically send the data to a server
+            // For demo purposes, we'll just show an alert
+            alert('¡Gracias por contactarnos! Te responderemos a la brevedad.');
+            contactForm.reset();
         });
     }
     
@@ -182,11 +220,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Animate elements on scroll
     function animateOnScroll() {
-        const elements = document.querySelectorAll('.servicio-card, .doctor-card, .nosotros-image, .nosotros-text');
+        const elements = document.querySelectorAll('.servicio-card, .doctor-card, .nosotros-image, .nosotros-text, .testimonio-item');
         
         elements.forEach(element => {
             const elementPosition = element.getBoundingClientRect().top;
-            const screenPosition = window.innerHeight / 1.2;
+            const screenPosition = window.innerHeight / 1.3;
             
             if (elementPosition < screenPosition) {
                 element.style.opacity = '1';
@@ -194,6 +232,14 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+    
+    // Set initial styles for animation
+    const animatedElements = document.querySelectorAll('.servicio-card, .doctor-card, .nosotros-image, .nosotros-text, .testimonio-item');
+    animatedElements.forEach(element => {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(20px)';
+        element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    });
     
     // Run animation on load and scroll
     window.addEventListener('load', animateOnScroll);
