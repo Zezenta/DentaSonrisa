@@ -109,8 +109,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Ver más testimonios
     const btnVerMas = document.querySelector('.btn-ver-mas');
+    const btnMostrarMenos = document.querySelector('.btn-mostrar-menos');
     const testimoniosList = document.querySelector('.testimonios-list');
-    let testimoniosVisibles = 3;
+    const testimoniosIniciales = document.querySelectorAll('.testimonio-item');
     
     // Array de testimonios adicionales
     const testimoniosExtra = [
@@ -131,7 +132,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     ];
     
-    if (btnVerMas) {
+    if (btnVerMas && btnMostrarMenos) {
         btnVerMas.addEventListener('click', function() {
             // Mostrar más testimonios
             testimoniosExtra.forEach(testimonio => {
@@ -161,8 +162,30 @@ document.addEventListener('DOMContentLoaded', function() {
                 }, 100);
             });
             
-            // Ocultar el botón después de mostrar todos los testimonios
+            // Cambiar visibilidad de los botones
             btnVerMas.style.display = 'none';
+            btnMostrarMenos.style.display = 'flex';
+        });
+
+        btnMostrarMenos.addEventListener('click', function() {
+            // Obtener todos los testimonios adicionales
+            const testimoniosAdicionales = Array.from(testimoniosList.children).slice(testimoniosIniciales.length);
+            
+            // Animar la salida de los testimonios adicionales
+            testimoniosAdicionales.forEach(testimonio => {
+                testimonio.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                testimonio.style.opacity = '0';
+                testimonio.style.transform = 'translateY(20px)';
+            });
+            
+            // Eliminar los testimonios adicionales después de la animación
+            setTimeout(() => {
+                testimoniosAdicionales.forEach(testimonio => testimonio.remove());
+            }, 500);
+            
+            // Cambiar visibilidad de los botones
+            btnVerMas.style.display = 'flex';
+            btnMostrarMenos.style.display = 'none';
         });
     }
     

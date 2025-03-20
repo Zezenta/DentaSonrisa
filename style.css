@@ -345,7 +345,6 @@ header .container {
 .testimonios {
     padding: 80px 0;
     background-color: var(--background-alt);
-    color: var(--text-light);
 }
 
 .testimonios-list {
@@ -358,6 +357,8 @@ header .container {
 
 .testimonio-item {
     background-color: var(--primary-color);
+    color: white;
+    font-weight: 500;
     border-radius: 10px;
     padding: 20px;
     transition: transform 0.3s ease;
@@ -407,9 +408,13 @@ header .container {
 .testimonios-more {
     text-align: center;
     margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
 }
 
-.btn-ver-mas {
+.btn-ver-mas,
+.btn-mostrar-menos {
     background: none;
     border: none;
     color: #888;
@@ -418,21 +423,26 @@ header .container {
     display: flex;
     align-items: center;
     gap: 8px;
-    margin: 0 auto;
     padding: 10px 20px;
     transition: color 0.3s ease;
 }
 
-.btn-ver-mas:hover {
+.btn-ver-mas:hover,
+.btn-mostrar-menos:hover {
     color: #5e5e5e;
 }
 
-.btn-ver-mas i {
+.btn-ver-mas i,
+.btn-mostrar-menos i {
     transition: transform 0.3s ease;
 }
 
 .btn-ver-mas:hover i {
     transform: translateY(3px);
+}
+
+.btn-mostrar-menos:hover i {
+    transform: translateY(-3px);
 }
 
 @media (max-width: 768px) {
