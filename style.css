@@ -226,7 +226,7 @@ header .container {
     padding-top: 50px;
 }
 .stat span{
-    font-size: 2em;
+    font-size: 2.5em;
     color: var(--primary-color);
 }
 .stat p {
@@ -323,7 +323,7 @@ header .container {
 
 /* Doctores Section - Mobile First */
 .doctores {
-    padding: 60px 0;
+    padding-top: 60px;
     background-color: var(--background-color);
 }
 
@@ -383,110 +383,6 @@ header .container {
     font-size: 0.9rem;
 }
 
-/* Testimonios Section */
-.testimonios {
-    padding: 80px 0;
-    background-color: var(--background-alt);
-}
-
-.testimonios-list {
-    max-width: 800px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.testimonio-item {
-    background-color: var(--primary-color);
-    color: white;
-    font-weight: 500;
-    border-radius: 10px;
-    padding: 20px;
-    transition: transform 0.3s ease;
-}
-
-.testimonio-item:hover {
-    transform: translateY(-5px);
-}
-
-.testimonio-user {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 15px;
-}
-
-.testimonio-user img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-.user-info {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-.user-info h4 {
-    margin: 0;
-    font-size: 1.1rem;
-    color: #ffffff;
-}
-
-.review-time {
-    color: #ffffff;
-    font-weight: 100;
-    font-size: 0.9rem;
-    display: block;
-}
-
-.testimonio-content {
-    color: #fff;
-    line-height: 1.6;
-    font-size: 1rem;
-}
-
-.testimonios-more {
-    text-align: center;
-    margin-top: 30px;
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-}
-
-.btn-ver-mas,
-.btn-mostrar-menos {
-    background: none;
-    border: none;
-    color: #888;
-    font-size: 1rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 20px;
-    transition: color 0.3s ease;
-}
-
-.btn-ver-mas:hover,
-.btn-mostrar-menos:hover {
-    color: #5e5e5e;
-}
-
-.btn-ver-mas i,
-.btn-mostrar-menos i {
-    transition: transform 0.3s ease;
-}
-
-.btn-ver-mas:hover i {
-    transform: translateY(3px);
-}
-
-.btn-mostrar-menos:hover i {
-    transform: translateY(-3px);
-}
-
 /* Contacto Section - Mobile First */
 .contacto {
     padding: 60px 0;
@@ -495,7 +391,7 @@ header .container {
 
 .contacto-content {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     gap: 30px;
 }
 
@@ -548,12 +444,18 @@ header .container {
     transform: translateY(-3px);
 }
 
-.contacto-form {
+.contacto-map {
     background-color: white;
     border-radius: 10px;
     padding: 25px 20px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
     order: 1;
+}
+.contacto-map iframe {
+    border: none;
+    border-radius: 6px;
+    height: 100%;
+    width: 100%;
 }
 
 .form-group {
@@ -762,7 +664,7 @@ footer {
         flex: 1;
     }
     
-    .contacto-form {
+    .contacto-map {
         order: 2;
         flex: 1;
     }
