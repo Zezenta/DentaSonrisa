@@ -216,6 +216,27 @@ header .container {
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
+/* STATS */
+.stats .container {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 50px;
+}
+.stat span{
+    font-size: 2em;
+    color: var(--primary-color);
+}
+.stat p {
+    font-size: 1.3rem;
+}
+.counter {
+    font-weight: bold;
+}
+
+
 /* Servicios Section - Mobile First */
 .servicios {
     padding: 60px 0;
@@ -723,6 +744,11 @@ footer {
         font-size: 2.5rem;
     }
     
+    .stats .container {
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
     .doctores-grid {
         grid-template-columns: repeat(2, 1fr);
     }
