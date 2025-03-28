@@ -197,6 +197,12 @@ header .container {
     z-index: -1;
 }
 
+@supports (-webkit-touch-callout: none){
+    .hero::before{
+        background-attachment: fixed;
+    }
+}
+
 .hero-content {
     position: relative;
     z-index: 1;
