@@ -199,7 +199,7 @@ header .container {
 
 @supports (-webkit-touch-callout: none){
     .hero::before{
-        background-attachment: fixed;
+        background-attachment: scroll;
     }
 }
 
